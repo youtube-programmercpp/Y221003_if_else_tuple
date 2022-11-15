@@ -6,8 +6,8 @@
 //	単一バイト文字の文字種条件と変換処理の仕様を構造体にする
 //
 const struct SingleByteCharTransformOperator {
-	int  (*条件)(unsigned char ch); //文字種条件: この文字種である場合に
-	void (*変換)(char        * s ); //変換処理  : 変換処理を実施する
+	int  (*条件)(unsigned char ch) noexcept; //文字種条件: この文字種である場合に
+	void (*変換)(char        * s ) noexcept; //変換処理  : 変換処理を実施する
 
 	bool 条件に合えば変換実施(char* s) const noexcept
 	{
@@ -18,11 +18,11 @@ const struct SingleByteCharTransformOperator {
 		else
 			return false;
 	}
-} 奇数番目文字用の仕様 = { [](unsigned char ch) {return islower(ch); } , [](char* s) {*s = _toupper(*s); } }
-, 偶数番目文字用の仕様 = { [](unsigned char ch) {return isupper(ch); } , [](char* s) {*s = _tolower(*s); } }
+} 奇数番目文字用の仕様 = { [](unsigned char ch) noexcept {return islower(ch); } , [](char* s) noexcept {*s = _toupper(*s); } }
+, 偶数番目文字用の仕様 = { [](unsigned char ch) noexcept {return isupper(ch); } , [](char* s) noexcept {*s = _tolower(*s); } }
 ;
 //変換関数
-void 変換(char s[])
+void 変換(char s[]) noexcept
 {
 	for (bool 奇数番目の文字である = true; *s; 奇数番目の文字である = !奇数番目の文字である) {
 		if ((奇数番目の文字である ? 奇数番目文字用の仕様 : 偶数番目文字用の仕様).条件に合えば変換実施(s))
