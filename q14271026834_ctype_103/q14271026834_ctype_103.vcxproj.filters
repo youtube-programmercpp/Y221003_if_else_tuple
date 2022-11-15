@@ -15,7 +15,7 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="q14271026834_ctype_103.cpp">
+    <ClCompile Include="q14271026834_ctype_103.c">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
   </ItemGroup>
